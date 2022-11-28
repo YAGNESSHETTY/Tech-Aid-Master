@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+
+{%block title%}
+  <title> Home </title>
+{%endblock title%}
+
+{%block content%}
+
+  
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+      </div>
+    {% endfor %}
+  {% endif %}
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    <div class="col p-4 d-flex flex-column position-static">
+        <img src="{{post.user.profile.image.url}}" alt="Avatar" 
+            class="rounded-circle" style="width: 80px; height: 80px;" >
+        <strong class="d-inline-block text-primary">By: {{post.user}}</strong>
+        <div class="container">
+          {% if post.user == user %}
+          <a class="btn btn-danger btn-sm" href="{% url 'blog-delete' post.id %}">Delete</a>
+          <a class="btn btn-secondary btn-sm" href="{% url 'blog-update' post.id %}">Update</a>
+          {% endif %}
+        </div>
+        <h1 class="mb-2 d-flex justify-content-center"><strong>{{post.title}}</strong></h1>
+        <div class="d-flex justify-content-center mb-1 text-muted">{{post.date_posted}}</div>
+        <p class="card-text mb-auto">{{post.content}}</p>
+    </div>
+    </div>
+{%endblock content%}
+
